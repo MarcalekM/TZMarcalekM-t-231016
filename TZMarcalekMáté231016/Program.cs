@@ -15,11 +15,9 @@ namespace TZMarcalekMáté231016
                 path: @"..\..\..\src\terepjarok.txt",
                 encoding: Encoding.UTF8);
             while (!sr.EndOfStream) terepjarok.Add(new(sr.ReadLine()));
+
             Console.WriteLine("7. feladat:");
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine(terepjarok[i].ToString());
-            }
+            Kiir(terepjarok, 3);
 
             Console.WriteLine("9. feladat:");
             var f9 = terepjarok.Where(t => t.Marka.Contains("Toyota"));
@@ -41,6 +39,9 @@ namespace TZMarcalekMáté231016
             Console.WriteLine("\n12. feladat:");
             var dizel = terepjarok.Where(t => t.Uzemanyag == "Dízel");
             var ev = dizel.Max(d => d.Evjarat);
+            //Esetleg még így is:
+            //var ev = terepjarok.Where(t => t.Uzemanyag == "Dízel")
+            //                              .Max(t => t.Evjarat);
             var f12 = terepjarok.Where(t => t.Evjarat > ev);
             if (f12.Count() > 0) Console.WriteLine(f12.First().ToString());
             else Console.WriteLine("Nem található ilyen autó");
@@ -63,8 +64,17 @@ namespace TZMarcalekMáté231016
 
             Console.WriteLine("\n16. szorgalmi feladat");
             MinMax(terepjarok);
+
+            Console.ReadLine();
         }
 
+        static void Kiir(List<Terepjaro> lista, int db)
+        {
+            for (int i = 0; i < db; i++)
+            {
+                Console.WriteLine(lista[i].ToString());
+            }
+        }
 
         static Terepjaro Legkonnyebb(List<Terepjaro> lista)
         {
@@ -107,8 +117,6 @@ namespace TZMarcalekMáté231016
                 }
             }
             Console.WriteLine($"A legnehezebb terepjáró a {indexMax + 1} szorszámú\nA legkönnyebb pedig a {indexMin + 1} sorszámú");
-
-            Console.ReadLine();
         }
     }
 }
